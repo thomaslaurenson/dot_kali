@@ -1,0 +1,23 @@
+# Useful variables
+ip_address=$(/sbin/ip -o -4 addr list tun0 | awk '{print $4}' | cut -d/ -f1)
+
+# File association
+alias -s {html,css,js,txt,log,py,rb,php,asp,aspx,c}=code
+
+# Common commands
+alias cls="clear"
+alias ping="ping -c 4"
+alias myip="curl http://ipecho.net/plain; echo"
+alias update="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"
+alias df="df -H"
+alias reload="source ./.zshrc"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Pentest shortcuts
+alias ssploit="searchsploit "
+alias stty_raw="stty raw -echo; fg"
+
+# Python
+alias python_http="echo $ip_address; python3 -m http.server 8000"
