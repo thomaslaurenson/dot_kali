@@ -1,3 +1,10 @@
-# bootstrap_kali
+# dot_kali
 
-A simple bash script to configure a default Kali install
+A bootstrap script to auto install a fresh Kali Linux VM with useful packages and shell aliases.
+
+```none
+cd ~
+git clone https://github.com/thomaslaurenson/dot_kali.git
+cd dot_kali
+./bootstrap.sh
+```
