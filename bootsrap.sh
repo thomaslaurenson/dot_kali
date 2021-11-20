@@ -25,6 +25,7 @@ packagelist=(
     seclists
     feroxbuster
     gobuster
+    testssl.sh
     # Screenshot
     ksnip
     # Python
