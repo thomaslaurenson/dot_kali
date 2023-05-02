@@ -50,7 +50,7 @@ echo -e "${RED}[+] Installing Docker...${NC}"
 sudo apt -y install docker docker-compose
 
 # Add user to Docker group
-if ! getent group vboxsf > /dev/null; then
+if ! getent group docker > /dev/null; then
     sudo usermod -a -G docker $(whoami)
 fi
 
