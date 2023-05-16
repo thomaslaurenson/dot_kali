@@ -66,5 +66,11 @@ if ! command -v code &> /dev/null; then
     sudo apt-get -y install code
 fi
 
+# Decompress rockyou
+if [[ ! -f /usr/share/wordlists/rockyou.txt ]]; then
+    cd /usr/share/wordlists
+    sudo gunzip rockyou.txt.gz
+fi
+
 # Remove any unused packages
 sudo apt-get -y autoremove
