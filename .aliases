@@ -1,6 +1,3 @@
-# Useful variables
-ip_address=$(/sbin/ip -o -4 addr list tun0 | awk '{print $4}' | cut -d/ -f1)
-
 # File association
 alias -s {html,css,js,txt,log,py,rb,php,asp,aspx,c}=code
 
@@ -21,9 +18,6 @@ alias sf="cd /media/share"
 # Pentest shortcuts
 alias ssploit="searchsploit "
 alias stty_raw="stty raw -echo; fg"
-
-# Python
-alias python_http="echo wget $ip_address:8000/; python3 -m http.server 8000"
 
 # Get stuff faster
 # Privesc
