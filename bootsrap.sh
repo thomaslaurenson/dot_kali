@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Set colors
 RED="\033[0;31m"
 NC="\033[0m"
@@ -21,7 +22,7 @@ fi
 
 ##### Install packages
 packagelist=(
-    # Pentest tools
+    # Tools
     seclists
     feroxbuster
     gobuster
@@ -33,7 +34,7 @@ packagelist=(
     python3-venv
 )
 
-echo -e "${RED}[+] Installing required package...${NC}"
+echo -e "${RED}[+] Installing required packages...${NC}"
 sudo apt-get -y install ${packagelist[@]}
 
 ##### Impacket (requires python3-pip)
@@ -58,12 +59,11 @@ fi
 ##### VS Code
 echo -e "${RED}[+] Installing Visual Studio Code...${NC}"
 if ! command -v code &> /dev/null; then
-    sudo apt-get install wget gpg
+    sudo apt-get -y install wget gpg apt-transport-https
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
     rm -f packages.microsoft.gpg
-    sudo apt-get -y install apt-transport-https
     sudo apt-get -y update
     sudo apt-get -y install code
 fi
