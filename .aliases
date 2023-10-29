@@ -21,8 +21,9 @@ alias stty_raw="stty raw -echo; fg"
 
 # Get stuff faster
 # Privesc
-alias get_linpes="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O linpeas.sh"
+alias get_linpeas="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -O linpeas.sh"
 alias get_winpeas_any="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASany.exe -O winpeas.exe"
 alias get_winpeas_x64="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx64.exe -O winpeas.exe"
 alias get_winpeas_x86="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEASx86.exe -O winpeas.exe"
 alias get_winpeas_bat="wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/winPEAS.bat -O winpeas.bat"
+alias get_les="wget https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh -O les.sh"
