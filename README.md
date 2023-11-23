@@ -7,10 +7,12 @@ Make sure to configure VirtualBox shared folder using the following configuratio
 - Folder Name: `share`
 - Mount Point: `/media/share`
 
-Then clone repo and run setup script:
+To install or update, you should run the [bootstrap script](https://github.com/thomaslaurenson/dot_kali/blob/v0.1.0/bootstrap.sh). To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
-```none
-git clone https://github.com/thomaslaurenson/dot_kali.git
-cd dot_kali
-./bootstrap.sh
+```
+curl -o- https://raw.githubusercontent.com/thomaslaurenson/dot_kali/v0.1.0/bootstrap.sh | bash
+```
+
+```
+wget -qO- https://raw.githubusercontent.com/thomaslaurenson/dot_kali/v0.1.0/bootstrap.sh | bash
 ```
