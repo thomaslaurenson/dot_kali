@@ -3,12 +3,13 @@
 
 # Set colors
 RED=$(tput setaf 1)
+NORMAL=$(tput sgr0)
 
 # Aliases URL
 aliases_url="https://github.com/thomaslaurenson/dot_kali/releases/latest/download/aliases"
 
 ##### Add aliases file ~/.zshrc
-printf "%s[+] Configuring aliases...%s\n" "$RED", "$NORMAL"
+printf "%s[+] Configuring aliases...%s\n" "$RED" "$NORMAL"
 if [ ! -f "$HOME/.aliases" ]; then
     wget $aliases_url -O "$HOME/.aliases"
 fi
@@ -29,18 +30,19 @@ if ! getent group vboxsf > /dev/null; then
 fi
 
 ##### Install packages
-packages="
-    seclists
-    feroxbuster
-    gobuster
-    testssl.sh
-    ksnip
-    python3-pip
-    python3-venv
+packages_list="
+seclists
+feroxbuster
+gobuster
+python3-pip
+python3-venv
+testssl.sh
+ksnip
 "
 
+packages=$(echo "$packages_list" | tr '\n' ' ')
 printf "%s[+] Installing required packages...%s\n" "$RED" "$NORMAL"
-sudo apt-get -y install "$packages"
+sudo apt install -y "$packages"
 
 ##### Impacket (requires python3-pip)
 printf "%s[+] Installing impacket...%s\n" "$RED" "$NORMAL"
