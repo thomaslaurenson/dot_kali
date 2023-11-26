@@ -1,64 +1,69 @@
-#!/usr/bin/zsh
+#!/usr/bin/sh
 
 
 # Set colors
-RED="\033[0;31m"
-NC="\033[0m"
+RED=$(tput setaf 1)
 
-##### Add .aliases file ~/.zshrc
-echo -e "${RED}[+] Loading .aliases into ~/.zshrc file...${NC}"
-if ! grep dot_kali ~/.zshrc > /dev/null; then
-    echo -e "\n# load .aliases file" >> ~/.zshrc
-    echo -e "\nif [ -f ~/dot_kali/.aliases ]; then" >> ~/.zshrc
-    echo -e "    . ~/dot_kali/.aliases" >> ~/.zshrc
-    echo -e "fi" >> ~/.zshrc
+# Aliases URL
+aliases_url="https://github.com/thomaslaurenson/dot_kali/releases/latest/download/aliases"
+
+##### Add aliases file ~/.zshrc
+printf "%s[+] Configuring aliases...%s\n" "$RED", "$NORMAL"
+if [ ! -f "$HOME/.aliases" ]; then
+    wget $aliases_url -O "$HOME/.aliases"
+fi
+
+if ! grep -q 'dot_kali' "$HOME/.zshrc"; then
+    {
+        printf "\n# Load dot_kali aliases...\n"
+        printf "if [ -f '~/.aliases' ]; then\n"
+        printf "    . ~/aliases\n"
+        printf "fi\n"
+    } >> "$HOME/.zshrc"
 fi
 
 # Add user to Virtual Box shared folder group
-echo -e "${RED}[+] Adding user to vboxsf group...${NC}"
+printf "%s[+] Adding user to vboxsf group...%s\n" "$RED" "$NORMAL"
 if ! getent group vboxsf > /dev/null; then
-    sudo usermod -a -G vboxsf $(whoami)
+    sudo usermod -a -G vboxsf "$(whoami)"
 fi
 
 ##### Install packages
-packagelist=(
-    # Tools
+packages="
     seclists
     feroxbuster
     gobuster
     testssl.sh
-    # Screenshot
     ksnip
-    # Python
     python3-pip
     python3-venv
-)
+"
 
-echo -e "${RED}[+] Installing required packages...${NC}"
-sudo apt-get -y install ${packagelist[@]}
+printf "%s[+] Installing required packages...%s\n" "$RED" "$NORMAL"
+sudo apt-get -y install "$packages"
 
 ##### Impacket (requires python3-pip)
-echo -e "${RED}[+] Installing impacket...${NC}"
-if [[ ! -d /opt/impacket ]]; then
+printf "%s[+] Installing impacket...%s\n" "$RED" "$NORMAL"
+if [ ! -d /opt/impacket ]; then
     sudo git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
-    cd /opt/impacket
+    cd /opt/impacket || exit 1
     sudo pip3 install -r requirements.txt
     sudo python3 setup.py install
 fi
 
 ##### Docker
-echo -e "${RED}[+] Installing Docker...${NC}"
+printf "%s[+] Installing Docker...%s\n" "$RED" "$NORMAL"
 sudo apt -y install docker.io
 sudo systemctl enable docker --now
 
 # Add user to Docker group
-if ! getent group docker > /dev/null; then
-    sudo usermod -a -G docker $(whoami)
+if ! getent group docker; then
+    sudo usermod -a -G docker "$(whoami)"
 fi
 
 ##### VS Code
-echo -e "${RED}[+] Installing Visual Studio Code...${NC}"
-if ! command -v code &> /dev/null; then
+printf "%s[+] Installing VSCode...%s\n" "$RED" "$NORMAL"
+if ! command -v code; then
     sudo apt-get -y install wget gpg apt-transport-https
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
@@ -69,8 +74,9 @@ if ! command -v code &> /dev/null; then
 fi
 
 # Decompress rockyou
-if [[ ! -f /usr/share/wordlists/rockyou.txt ]]; then
-    cd /usr/share/wordlists
+printf "%s[+] Decompressing rockyou...%s\n" "$RED" "$NORMAL"
+if [ ! -f /usr/share/wordlists/rockyou.txt ]; then
+    cd /usr/share/wordlists || exit 1
     sudo gunzip rockyou.txt.gz
 fi
 

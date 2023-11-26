@@ -18,6 +18,6 @@ jobs:
         with:
           files: |
             bootstrap.sh
-            .aliases
+            aliases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
